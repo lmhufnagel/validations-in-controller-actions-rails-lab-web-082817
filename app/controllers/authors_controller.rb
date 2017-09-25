@@ -7,9 +7,15 @@ class AuthorsController < ApplicationController
   end
 
   def create
-    @author = Author.create!(author_params)
+    @author = Author.new(author_params)
 
-    redirect_to author_path(@author)
+    if @author.save
+      redirect_to author_path(@author)
+    else
+      render :new
+    end
+    # redirect_to invalid_input_path and return unless model.valid?
+    # redirect_to isbn_lookup_failed_path and return unless model.do_isbn_lookup
   end
 
   private
